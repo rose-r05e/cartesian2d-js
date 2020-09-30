@@ -1,33 +1,33 @@
 class Polygon {
     constructor(...args) {
-        this.points = new Array();
+        this._points = new Array();
         if (args[0] instanceof Array) {
             for (let element of args[0]) {
                 if (element instanceof Point) {
-                    this.points.push(element);
+                    this._points.push(element);
                 }
             }
         }
         else if (args[0] instanceof Point) {
             for (let element of args) {
                 if (element instanceof Point) {
-                    this.points.push(element);
+                    this._points.push(element);
                 }
             }
         }
         else throw new TypeError('Wrong type of arguments in Polygon constructor.');
-        if (this.points.length < 3) { throw new Error('Not enough valid arguments in Polygon constructor - it needs at least three of them.'); }
+        if (this._points.length < 3) { throw new Error('Not enough valid arguments in Polygon constructor - it needs at least three of them.'); }
 
-        this.points = sortPoints(this.points);
+        this._points = sortPoints(this._points);
+    }
 
-        //this.rotation = W RADIANACH; <- na poczatku to bedzie 0 radianow;
-
-        //this.center = SRODEK CIEZKOSCI(?) FIGURY
+    get points() {
+        return this._points;
     }
 
     translate(vector) {
-        for (let point of this.points) {
-            point.translate(vector);
+        for (i = 0; i < this._points.length; i++) {
+            this._points[i].translate(vector);
         }
     }
 
@@ -40,10 +40,8 @@ class Polygon {
         return per;
     }
 
-    get field() {
-        //Georg Alexander Pick
-        //Pick’s Theorem
-    }
+    //TO DO:
+    //get field() {}
 }
 
 function sortPoints(points) {
